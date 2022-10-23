@@ -26,7 +26,7 @@ final class Version20221022180807 extends AbstractMigration
         $this->addSql('CREATE TABLE customer (id INT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE ord (id INT NOT NULL, customer_id INT NOT NULL, sum DOUBLE PRECISION NOT NULL, status SMALLINT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_EB1CEB3A9395C3F3 ON ord (customer_id)');
-        $this->addSql('CREATE TABLE ord_product (ord_id INT NOT NULL, product_id INT NOT NULL, count INT NOT NULL, PRIMARY KEY(ord_id, product_id))');
+        $this->addSql('CREATE TABLE ord_product (ord_id INT NOT NULL, product_id INT NOT NULL, PRIMARY KEY(ord_id, product_id))');
         $this->addSql('CREATE INDEX IDX_99B86CA6E636D3F5 ON ord_product (ord_id)');
         $this->addSql('CREATE INDEX IDX_99B86CA64584665A ON ord_product (product_id)');
         $this->addSql('CREATE TABLE product (id INT NOT NULL, name VARCHAR(255) NOT NULL, price DOUBLE PRECISION NOT NULL, PRIMARY KEY(id))');
