@@ -2,12 +2,21 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Customer;
+use App\Entity\Ord;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
+    private array $customerFixtures = [
+      [
+          "id" => 1,
+          "name" => "Игорь",
+          "email" => "wawka2002@gmail.com"
+      ]
+    ];
     private array $productFixtures = [
         [
             "id" => 1,
@@ -21,7 +30,7 @@ class AppFixtures extends Fixture
         ],
         [
             "id" => 3,
-            "name" => "Виниловый проигрыватель",
+            "name" => "ОЗУ Goodram DDR4 8Gb",
             "price" => 8500.67
         ],
         [
@@ -32,6 +41,13 @@ class AppFixtures extends Fixture
     ];
     public function load(ObjectManager $manager): void
     {
+        foreach ($this->customerFixtures as $customerFixture) {
+            $customer = new Customer();
+            $customer->setId($customerFixture["id"]);
+            $customer->setName($customerFixture["name"]);
+            $customer->setEmail($customerFixture["email"]);
+            $manager->persist($customer);
+        }
         foreach ($this->productFixtures as $productFixture) {
             $product = new Product();
             $product->setId($productFixture["id"]);
@@ -39,6 +55,10 @@ class AppFixtures extends Fixture
             $product->setPrice($productFixture["price"]);
             $manager->persist($product);
         }
+
+        $ord = new Ord();
+        $ord->setId(1);
+        $ord->addProduct(1,2,3)
         $manager->flush();
     }
 }
